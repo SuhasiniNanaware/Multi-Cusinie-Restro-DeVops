@@ -1,19 +1,11 @@
-pipeline{
-agent any
+pipeline {
+    agent any
 
-stages {
-stages('Hello'){
-steps {
-echo "Hello from jenkins"
+    stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello from Jenkins 🚀'
+            }
+        }
+    }
 }
-}
-}
-}
-
-
-
-
-
-
-
-
