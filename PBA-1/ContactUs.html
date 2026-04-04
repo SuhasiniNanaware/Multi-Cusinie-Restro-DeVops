@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us - Multi-Cuisine Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#f8f9fa;color:#333;line-height:1.6;overflow-x:hidden;}
+
+.shape{
+  position:absolute;border-radius:50%;opacity:0.2;animation:float 8s infinite alternate;
+}
+.shape1{width:200px;height:200px;background:#ff6b81;top:-50px;left:-50px;}
+.shape2{width:300px;height:300px;background:#1dd1a1;bottom:-100px;right:-100px;}
+.shape3{width:150px;height:150px;background:#ff9f43;top:200px;right:-75px;}
+@keyframes float{
+  to{transform:translateY(30px) rotate(20deg);}
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(135deg, #ff9a8b, #ff6a88, #ff99ac);
+  color: white;
+  text-align: center;
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem); 
+  font-weight: 700;
+  margin-bottom: 1rem;
+  z-index: 1;
+  position: relative;
+  line-height: 1.2;
+  word-wrap: break-word;
+}
+
+.hero p {
+  font-size: clamp(0.9rem, 2.5vw, 1.2rem); 
+  opacity: 0.95;
+  z-index: 1;
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Responsive Hero */
+@media (max-width: 992px) {
+  .hero {
+    padding: 5rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 3rem 1rem;
+  }
+  .hero p {
+    max-width: 90%;
+  }
+}
+
+
+/* Contact Form */
+.contact-form {
+  flex: 1 1 400px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-form textarea {
+  resize: none;
+}
+
+/* Responsive Hero */
+@media (max-width: 992px) {
+  .hero {
+    padding: 5rem 1.5rem;
+  }
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .hero p {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 4rem 1.2rem;
+  }
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .contact-form {
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 3rem 1rem;
+  }
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .hero p {
+    font-size: 0.9rem;
+  }
+
+  .contact-form {
+    padding: 1.5rem;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 0.9rem;
+    padding: 0.75rem 0.9rem;
+  }
+
+  .contact-form button {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 0.7rem 1rem;
+  }
+}
+
+
+
+/* Contact Container */
+.contact-container{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  max-width:1100px;margin:0 auto;padding:2rem 1rem;gap:2rem;
+  flex-wrap:wrap;
+}
+
+/* Contact Form */
+.contact-form{
+  flex:1 1 400px;background:#ffffff;border-radius:20px;padding:2.5rem;
+  box-shadow:0 20px 50px rgba(0,0,0,0.08);position:relative;overflow:hidden;
+}
+.contact-form::before{
+  content:"";position:absolute;top:-50px;right:-50px;width:150px;height:150px;
+  background:linear-gradient(45deg,#ff6b6b,#ff9f43);border-radius:50%;opacity:0.15;
+}
+.contact-form h3{
+  font-size:1.6rem;margin-bottom:1.5rem;color:#ff6b6b;
+}
+.contact-form .form-group{
+  position:relative;margin-bottom:1.8rem;
+}
+.contact-form input,
+.contact-form textarea{
+  width:100%;padding:0.9rem 1rem;border:1px solid #ddd;border-radius:12px;
+  font-size:1rem;outline:none;transition:all 0.3s;background:#fafafa;
+}
+.contact-form input:focus,
+.contact-form textarea:focus{border-color:#ff6b6b;background:#fff;}
+.contact-form label{
+  position:absolute;top:50%;left:1rem;transform:translateY(-50%);
+  background:#fff;padding:0 0.3rem;color:#aaa;font-size:0.95rem;
+  pointer-events:none;transition:0.3s;
+}
+.contact-form input:focus + label,
+.contact-form input:not(:placeholder-shown) + label,
+.contact-form textarea:focus + label,
+.contact-form textarea:not(:placeholder-shown) + label{
+  top:-10px;left:0.8rem;font-size:0.8rem;color:#ff6b6b;
+}
+.contact-form button{
+  background:linear-gradient(135deg,#ff6b6b,#ff9f43);color:white;border:none;
+  padding:0.8rem 2rem;font-size:1rem;border-radius:30px;cursor:pointer;font-weight:600;
+  transition:0.3s;
+}
+.contact-form button:hover{transform:scale(1.05);}
+
+
+
+/* Social Icons */
+.social-icons{display:flex;gap:1rem;margin-top:1rem;flex-wrap:wrap;}
+.social-icons a{
+  width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:#ff6b6b;color:white;font-size:1.2rem;transition:0.3s;
+}
+.social-icons a:hover{transform:scale(1.1);background:#ff9f43;}
+
+/* Map Placeholder */
+.map{
+  margin-top:3rem;width:100%;height:300px;border-radius:20px;
+  background:#ddd;display:flex;align-items:center;justify-content:center;
+  color:#777;font-size:1.2rem;font-weight:600;
+  box-shadow:0 15px 30px rgba(0,0,0,0.07);
+}
+
+/* Responsive */
+@media(max-width:992px){
+  .contact-container{flex-direction:column;}
+}
+@media(max-width:768px){
+  .contact-form, .contact-info{padding:2rem;}
+  .hero h1{font-size:2.5rem;}
+  .hero p{font-size:1.1rem;}
+}
+@media(max-width:600px){
+  .hero h1{font-size:2.2rem;}
+  .hero p{font-size:1rem;}
+  .section-title{font-size:1.5rem;}
+  .contact-form button{width:100%;}
+  .social-icons a{width:35px;height:35px;font-size:1rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- Floating Shapes -->
+<div class="shape shape1"></div>
+<div class="shape shape2"></div>
+<div class="shape shape3"></div>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>Contact Us</h1>
+  <p>Have a question or feedback? Love to hear from you!</p>
+</section>
+
+
+  <!-- Contact Form -->
+  <div class="contact-form">
+    <h3>Send Us a Message</h3>
+    <form>
+      <div class="form-group">
+        <input type="text" name="name" required placeholder=" ">
+        <label>Name</label>
+      </div>
+      <div class="form-group">
+        <input type="email" name="email" required placeholder=" ">
+        <label>Email</label>
+      </div>
+      <div class="form-group">
+        <input type="text" name="subject" required placeholder=" ">
+        <label>Subject</label>
+      </div>
+      <div class="form-group">
+        <textarea name="message" rows="5" required placeholder=" "></textarea>
+        <label>Message</label>
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <!-- Contact Info -->
+  <div class="contact-info">
+    <h3>Contact Information</h3>
+    <div class="info-item">
+      <span>📍</span>
+      <p>Plot 78, Baner Road, Pune, Maharashtra</p>
+    </div>
+    <div class="info-item">
+      <span>📞</span>
+      <p>+91 91234 56789</p>
+    </div>
+    <div class="info-item">
+      <span>✉️</span>
+      <p>contact@flavorsoftheworld.com</p>
+    </div>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </div>
+</div>
+
+<!-- Map -->
+<div class="map">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.488406289195!2d73.77964477493066!3d18.562565587422013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c0cf6f2b7d2b%3A0x6a1d4d71b95a15c9!2sBaner%2C%20Pune%2C%20Maharashtra%20411045%2C%20India!5e0!3m2!1sen!2sin!4v1695985639810!5m2!1sen!2sin"
+    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+
+</body>
+</html>

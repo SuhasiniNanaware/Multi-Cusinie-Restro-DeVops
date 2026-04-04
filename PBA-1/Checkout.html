@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - Multi-Cuisine Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif;}
+body { background:#fffdf9; color:#333; }
+.container { max-width:1200px; margin:2rem auto; padding:0 1rem; display:grid; grid-template-columns:2fr 1fr; gap:2rem; }
+h2.section-title { font-size:1.8rem; color:#ff704d; margin-bottom:1rem; position:relative; }
+h2.section-title::after { content:''; width:60px; height:3px; background:#20b2aa; display:block; margin:8px 0 0; border-radius:2px; }
+
+/* Forms */
+.checkout-form { background:#fff; padding:2rem; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.08); }
+.checkout-form h3 { font-size:1.4rem; margin-bottom:1rem; color:#ff704d; }
+.checkout-form label { display:block; margin:0.8rem 0 0.3rem; font-weight:600; }
+.checkout-form input, .checkout-form select, .checkout-form textarea {
+  width:100%; padding:0.6rem 0.8rem; border:1px solid #ddd; border-radius:8px; font-size:0.95rem;
+}
+.checkout-form textarea { resize:none; height:80px; }
+.checkout-form .form-group { margin-bottom:1rem; }
+
+/* Payment Section */
+.payment-methods { display:flex; gap:1rem; margin-top:1rem; flex-wrap:wrap; }
+.payment-method { flex:1; min-width:120px; background:#fafafa; padding:1rem; border-radius:12px; border:2px solid #ddd; text-align:center; cursor:pointer; transition:0.3s; }
+.payment-method.active { border-color:#20b2aa; box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+.payment-method img { width:40px; height:40px; margin-bottom:0.5rem; }
+.payment-details { margin-top:1rem; display:none; animation:fadeIn 0.4s ease; }
+.payment-details.active { display:block; }
+@keyframes fadeIn { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+
+.card-form input { margin-bottom:0.5rem; }
+
+/* Order Summary */
+.order-summary { background:#fff; padding:2rem; border-radius:16px; box-shadow:0 10px 30px rgba(0,0,0,0.08); height:max-content; }
+.order-summary h3 { font-size:1.4rem; margin-bottom:1rem; color:#ff704d; }
+.summary-item { display:flex; justify-content:space-between; margin-bottom:0.8rem; border-bottom:1px solid #eee; padding-bottom:0.5rem; }
+.summary-total { display:flex; justify-content:space-between; font-weight:700; font-size:1.1rem; margin-top:1rem; }
+
+/* Buttons */
+.place-order, .generate-receipt { margin-top:1.5rem; width:100%; padding:0.8rem; font-weight:600; border:none; border-radius:30px; cursor:pointer; transition:0.3s; }
+.place-order { background:linear-gradient(135deg,#ff9068,#fd746c); color:white; }
+.place-order:hover { transform:scale(1.05); }
+.generate-receipt { background:linear-gradient(135deg,#20b2aa,#3ec1d3); color:white; margin-top:0.8rem; }
+.generate-receipt:hover { transform:scale(1.05); }
+
+/* Responsive */
+@media(max-width:992px){ .container { grid-template-columns:1fr; gap:1.5rem; } }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Billing / Delivery Info -->
+  <div class="checkout-form">
+    <h2 class="section-title">Billing & Delivery Info</h2>
+    <div class="form-group"><label for="name">Full Name</label><input type="text" id="name" placeholder="John Doe"></div>
+    <div class="form-group"><label for="email">Email</label><input type="email" id="email" placeholder="example@email.com"></div>
+    <div class="form-group"><label for="phone">Phone Number</label><input type="tel" id="phone" placeholder="+91 9876543210"></div>
+    <div class="form-group"><label for="address">Address</label><textarea id="address" placeholder="Street, City, State, Pincode"></textarea></div>
+    <div class="form-group"><label for="notes">Order Notes</label><textarea id="notes" placeholder="Any special instructions?"></textarea></div>
+
+    <h3>Payment Method</h3>
+    <div class="payment-methods">
+      <div class="payment-method active" data-method="cod">
+        <img src="https://cdn-icons-png.flaticon.com/512/3075/3075977.png" alt="Cash">
+        <p>Cash on Delivery</p>
+      </div>
+      <div class="payment-method" data-method="card">
+        <img src="https://cdn-icons-png.flaticon.com/512/179/179457.png" alt="Card">
+        <p>Card Payment</p>
+      </div>
+      <div class="payment-method" data-method="upi">
+        <img src="https://cdn-icons-png.flaticon.com/512/565/565706.png" alt="UPI">
+        <p>UPI Payment</p>
+      </div>
+    </div>
+
+    <div class="payment-details" id="codDetails"><p>Pay with cash upon delivery.</p></div>
+    <div class="payment-details" id="cardDetails" class="card-form">
+      <input type="text" placeholder="Card Number" maxlength="16">
+      <input type="text" placeholder="Cardholder Name">
+      <input type="text" placeholder="Expiry MM/YY">
+      <input type="text" placeholder="CVV" maxlength="3">
+    </div>
+    <div class="payment-details" id="upiDetails">
+      <p>Scan QR or enter UPI ID to pay.</p>
+      <input type="text" placeholder="Enter UPI ID">
+    </div>
+
+    <button class="place-order" onclick="placeOrder()">Place Order</button>
+    <button class="generate-receipt" onclick="generateReceipt()">Generate Receipt (PDF)</button>
+  </div>
+
+  <!-- Order Summary -->
+  <div class="order-summary">
+    <h2 class="section-title">Order Summary</h2>
+    <div id="summaryItems">
+      <p style="text-align:center;opacity:0.6;">Your cart is empty.</p>
+    </div>
+    <div class="summary-total">
+      <span>Total:</span>
+      <span id="summaryTotal">₹0</span>
+    </div>
+  </div>
+</div>
+
+
+<script>
+const { jsPDF } = window.jspdf;
+
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// Render Order Summary dynamically
+function renderSummary() {
+  const summaryDiv = document.getElementById('summaryItems');
+  const totalSpan = document.getElementById('summaryTotal');
+  summaryDiv.innerHTML = '';
+  if (cart.length === 0) {
+    summaryDiv.innerHTML = '<p style="text-align:center;opacity:0.6;">Your cart is empty.</p>';
+    totalSpan.innerText = '₹0';
+    return;
+  }
+
+  let total = 0;
+  cart.forEach(item => {
+    const div = document.createElement('div');
+    div.classList.add('summary-item');
+    div.innerHTML = `<span>${item.name} x ${item.qty}</span><span>₹${(item.price * item.qty).toFixed(2)}</span>`;
+    summaryDiv.appendChild(div);
+    total += item.price * item.qty;
+  });
+  totalSpan.innerText = '₹' + total.toFixed(2);
+}
+
+// Payment tabs
+const paymentMethods = document.querySelectorAll('.payment-method');
+const codDetails = document.getElementById('codDetails');
+const cardDetails = document.getElementById('cardDetails');
+const upiDetails = document.getElementById('upiDetails');
+
+paymentMethods.forEach(method => {
+  method.addEventListener('click', () => {
+    paymentMethods.forEach(m => m.classList.remove('active'));
+    method.classList.add('active');
+    codDetails.classList.remove('active');
+    cardDetails.classList.remove('active');
+    upiDetails.classList.remove('active');
+    const selected = method.getAttribute('data-method');
+    if (selected === 'cod') codDetails.classList.add('active');
+    else if (selected === 'card') cardDetails.classList.add('active');
+    else if (selected === 'upi') upiDetails.classList.add('active');
+  });
+});
+
+// Place Order
+function placeOrder() {
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const address = document.getElementById('address').value.trim();
+  if (!name || !email || !phone || !address) {
+    alert("Please fill all required fields!");
+    return;
+  }
+  alert("Order placed successfully!\nThank you for ordering from Flavors of the World 🍽️");
+  localStorage.removeItem('cart');
+  cart = [];
+  renderSummary();
+  document.querySelector('.checkout-form').reset();
+}
+
+// Generate Receipt PDF 
+function generateReceipt() {
+  if (cart.length === 0) {
+    alert("Your cart is empty!");
+    return;
+  }
+
+  const name = document.getElementById('name').value.trim() || 'Guest';
+  const email = document.getElementById('email').value.trim() || '';
+  const phone = document.getElementById('phone').value.trim() || '';
+  const address = document.getElementById('address').value.trim() || '';
+  const payment = document.querySelector('.payment-method.active p').innerText;
+
+  const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+  const startX = 40;
+  let y = 50;
+
+  doc.setFontSize(18);
+  doc.setFont(undefined, 'bold');
+  doc.text("Flavors of the World 🍽️", startX, y);
+  y += 30;
+
+  doc.setFontSize(12);
+  doc.setFont(undefined, 'normal');
+  doc.text(`Customer Name: ${name}`, startX, y); y += 16;
+  doc.text(`Email: ${email}`, startX, y); y += 16;
+  doc.text(`Phone: ${phone}`, startX, y); y += 16;
+  doc.text(`Address: ${address}`, startX, y); y += 20;
+  doc.text(`Payment Method: ${payment}`, startX, y); y += 25;
+
+  doc.setFont(undefined, 'bold');
+  doc.text("Order Details:", startX, y); y += 20;
+
+  doc.setFont(undefined, 'normal');
+  let total = 0;
+  cart.forEach(item => {
+    doc.text(`${item.name} x ${item.qty}  -  ₹${(item.price * item.qty).toFixed(2)}`, startX + 10, y);
+    total += item.price * item.qty;
+    y += 16;
+  });
+
+  y += 10;
+  doc.setFont(undefined, 'bold');
+  doc.text(`Total Amount: ₹${total.toFixed(2)}`, startX, y);
+  y += 20;
+
+  doc.setFontSize(10);
+  doc.text("Thank you for ordering from Flavors of the World! Visit again 🍽️", startX, y);
+
+  doc.save(`Receipt_${name.replace(/\s+/g,'_')}.pdf`);
+}
+
+renderSummary();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Cuisine Menu</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif;}
+body { background:#fffdf9; color:#333; display:flex; }
+
+/* Sidebar */
+.sidebar {
+  width:260px; background:#fafafa; padding:2rem 1rem; border-right:1px solid #eee;
+  position:sticky; top:0; height:100vh; overflow-y:auto;
+}
+.sidebar h2 { font-size:1.3rem; margin-bottom:1rem; color:#ff704d; }
+.sidebar section { margin-bottom:2rem; }
+.sidebar label { display:block; margin:0.5rem 0; font-size:0.95rem; color:#444; cursor:pointer; }
+.sidebar select {
+  width:100%; padding:0.6rem; border:1px solid #ddd; border-radius:6px; font-size:0.95rem;
+}
+
+/* Main Content */
+.main-content { flex:1; overflow-x:hidden; }
+header {
+  text-align:center; padding:3rem 1rem 2rem;
+  background: linear-gradient(135deg,#ff9068,#fd746c);
+  color:white; clip-path: ellipse(100% 100% at 50% 0%);
+}
+header h1 { font-size:2.5rem; font-weight:700; }
+header p { font-size:1rem; margin-top:0.5rem; opacity:0.9; }
+
+.section-title {
+  text-align:center; margin:2.5rem 0 1.2rem; font-size:1.8rem;
+  font-weight:700; color:#ff704d; position:relative;
+}
+.section-title::after {
+  content:''; width:60px; height:3px; background:#20b2aa;
+  display:block; margin:8px auto 0; border-radius:2px;
+}
+
+/* Menu grid */
+.menu-container {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1.5rem; max-width:1200px; margin:0 auto 3rem; padding:0 1rem;
+}
+
+/* Menu Card */
+.menu-item {
+  position:relative; border-radius:18px; overflow:hidden; cursor:pointer;
+  height:320px; display:flex; align-items:flex-end; 
+  box-shadow:0 6px 20px rgba(0,0,0,0.12);
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+.menu-item:hover {
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:0 12px 30px rgba(0,0,0,0.2);
+}
+.menu-item img {
+  position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;
+  transition: transform 0.5s ease;
+}
+.menu-item:hover img { transform:scale(1.1); }
+
+.menu-overlay {
+  position:absolute; bottom:0; left:0; width:100%;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,0.8) 100%);
+  color:white; padding:1.2rem; text-align:left;
+}
+.menu-overlay h3 { font-size:1.3rem; font-weight:700; margin-bottom:0.4rem; }
+.menu-overlay p.description { font-size:0.9rem; margin-bottom:0.6rem; opacity:0.85; }
+.menu-overlay .price {
+  background:#20b2aa; display:inline-block; padding:0.3rem 0.9rem;
+  border-radius:20px; font-size:0.9rem; font-weight:600;
+}
+.menu-overlay button {
+  margin-top:0.6rem; background:linear-gradient(135deg,#ff9068,#fd746c);
+  border:none; color:#fff; padding:0.5rem 1.2rem; border-radius:30px;
+  font-size:0.9rem; font-weight:600; cursor:pointer;
+  transition:all 0.3s ease;
+}
+.menu-overlay button:hover { transform:scale(1.05); }
+
+/* Responsive */
+@media(max-width:992px){
+  body{ flex-direction:column; }
+  .sidebar{ width:100%; height:auto; border-right:none; border-bottom:1px solid #eee; display:flex; gap:2rem; flex-wrap:wrap; justify-content:center; }
+}
+@media(max-width:600px){
+  header h1{ font-size:1.8rem; }
+  .section-title{ font-size:1.4rem; }
+  .menu-item{ height:250px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+<section>
+  <h2>Search</h2>
+  <input type="text" id="searchInput" placeholder="Search menu..." 
+         style="width:100%;padding:0.5rem;border:1px solid #ddd;border-radius:6px;font-size:0.95rem;">
+  <div id="searchSuggestions" style="background:#fff; border:1px solid #ddd; border-radius:6px; margin-top:0.2rem; max-height:150px; overflow-y:auto; display:none; position:relative; z-index:10;"></div>
+</section>
+
+
+<section>
+  <h2>Sort By</h2>
+  <select id="sortSelect">
+    <option value="default">Default</option>
+    <option value="priceLow">Price: Low to High</option>
+    <option value="priceHigh">Price: High to Low</option>
+  </select>
+</section>
+
+<section>
+  <h2>Filter</h2>
+  <label><input type="checkbox" class="filter" value="starters"> Starters</label>
+  <label><input type="checkbox" class="filter" value="main"> Main Course</label>
+  <label><input type="checkbox" class="filter" value="desserts"> Desserts</label>
+</section>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+  <header>
+    <h1>Our Multi-Cuisine Menu</h1>
+    <p>Discover flavors from around the world</p>
+  </header>
+
+  <h2 class="section-title">Menu</h2>
+  <div class="menu-container" id="menuContainer"></div>
+</div>
+
+<script>
+const menuItems = [
+  {name:"Veg Spring Rolls",category:"starters",description:"Crispy rolls with fresh vegetables.",price:150,img:"spring rolls.jpeg"},
+  {name:"Paneer Tikka",category:"starters",description:"Grilled paneer with spices.",price:200,img:"panner tikka.jpeg"},
+  {name:"Veg Sushi",category:"starters",description:"Fresh vegetarian sushi rolls.",price:250,img:"sushi.jpeg"},
+  {name:"Bruschetta",category:"starters",description:"Toasted bread with tomato and basil.",price:180,img:"Bruschetta.jpeg"},
+  {name:"Veg Ramen",category:"main",description:"Hot ramen with fresh veggies.",price:200,img:"Veg Ramen.jpeg"},
+  {name:"Kimchi Fried Rice",category:"main",description:"Korean-style fried rice with kimchi.",price:180,img:"Kimchi Fried Rice.jpeg"},
+  {name:"Veg Noodles",category:"main",description:"Stir-fried noodles with veggies.",price:170,img:"Veg Noodles.jpeg"},
+  {name:"Mushroom Risotto",category:"main",description:"Creamy risotto with mushrooms.",price:220,img:"Mushroom Risotto.jpeg"},
+  {name:"Chocolate Lava Cake",category:"desserts",description:"Warm chocolate cake with molten center.",price:120,img:"Chocolate Lava Cake.jpeg"},
+  {name:"Mango Pudding",category:"desserts",description:"Smooth mango pudding with cream.",price:100,img:"Mango Pudding.jpeg"},
+  {name:"Ice Cream Sundae",category:"desserts",description:"Vanilla ice cream with toppings.",price:90,img:"Ice Cream Sundae.jpeg"},
+  {name:"Tiramisu",category:"desserts",description:"Classic Italian coffee dessert.",price:150,img:"Tiramisu.jpeg"}
+];
+
+const container = document.getElementById("menuContainer");
+const sortSelect = document.getElementById("sortSelect");
+const filters = document.querySelectorAll(".filter");
+const searchInput = document.getElementById("searchInput");
+
+// Cart starts empty
+let cart = [];
+
+// Render menu items
+function renderMenu(items){
+  container.innerHTML="";
+  items.forEach((item,index)=>{
+    const div = document.createElement("div");
+    div.classList.add("menu-item");
+    div.innerHTML = `
+      <img src="${item.img}" alt="${item.name}">
+      <div class="menu-overlay">
+        <h3>${item.name}</h3>
+        <p class="description">${item.description}</p>
+        <p class="price">₹${item.price}</p>
+        <button onclick="addToCart(${index})">Add to Cart</button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// Add to cart function 
+function addToCart(index){
+  const item = menuItems[index];
+  const existing = cart.find(i => i.name === item.name);
+  if(existing){
+    existing.qty += 1;
+  } else {
+    cart.push({...item, qty: 1});
+  }
+  console.log("Cart:", cart); 
+}
+
+// Apply search, filter, sort
+function applyFiltersAndSort(){
+  let filtered = [...menuItems];
+
+  // Search
+  const searchValue = searchInput.value.toLowerCase().trim();
+  if(searchValue) filtered = filtered.filter(item => item.name.toLowerCase().includes(searchValue));
+
+  // Category filter
+  const selectedFilters = [...filters].filter(f => f.checked).map(f => f.value);
+  if(selectedFilters.length > 0) filtered = filtered.filter(item => selectedFilters.includes(item.category));
+
+  // Sort
+  const sortValue = sortSelect.value;
+  if(sortValue === "priceLow") filtered.sort((a,b) => a.price - b.price);
+  else if(sortValue === "priceHigh") filtered.sort((a,b) => b.price - a.price);
+
+  renderMenu(filtered);
+}
+
+// Event listeners
+searchInput.addEventListener("input", applyFiltersAndSort);
+sortSelect.addEventListener("change", applyFiltersAndSort);
+filters.forEach(f => f.addEventListener("change", applyFiltersAndSort));
+
+// Initial render
+renderMenu(menuItems);
+
+const searchSuggestions = document.getElementById("searchSuggestions");
+
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase().trim();
+  searchSuggestions.innerHTML = "";
+  
+  if (!query) {
+    searchSuggestions.style.display = "none";
+    renderMenu(menuItems);
+    return;
+  }
+
+  const matched = menuItems.filter(item => item.name.toLowerCase().includes(query));
+  
+  if (matched.length === 0) {
+    searchSuggestions.style.display = "none";
+    renderMenu([]);
+    return;
+  }
+
+  matched.forEach(item => {
+    const div = document.createElement("div");
+    div.textContent = item.name;
+    div.style.padding = "0.4rem 0.6rem";
+    div.style.cursor = "pointer";
+    div.style.borderBottom = "1px solid #eee";
+    div.addEventListener("click", () => {
+      searchInput.value = item.name;
+      searchSuggestions.style.display = "none";
+      renderMenu([item]);
+    });
+    searchSuggestions.appendChild(div);
+  });
+
+  searchSuggestions.style.display = "block";
+});
+
+</script>
+
+</body>
+</html>

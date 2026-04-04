@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us - Flavors of the World</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#fff8f5;color:#333;line-height:1.6;}
+
+/* Hero Section */
+.hero{
+  background:linear-gradient(135deg,#ff6a88,#ffb199);
+  color:white;text-align:center;padding:6rem 2rem;position:relative;overflow:hidden;
+  clip-path: ellipse(100% 100% at 50% 0%);
+}
+.hero h1{font-size:3rem;font-weight:700;z-index:1;position:relative;}
+.hero p{margin-top:1rem;font-size:1.2rem;opacity:0.9;position:relative;z-index:1;}
+
+/* Section Titles */
+.section-title{
+  text-align:center;margin:3rem 0 1.5rem;font-size:2rem;font-weight:700;
+  background:linear-gradient(90deg,#ff6a88,#ffb199);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  position:relative;
+}
+.section-title::after{
+  content:'';width:70px;height:3px;background:#20c997;
+  display:block;margin:10px auto 0;border-radius:2px;
+}
+
+/* About Section */
+.about-section{
+  max-width:900px;margin:0 auto;padding:2rem 1rem;text-align:center;
+  font-size:1rem;color:#555;background:#fff; border-radius:25px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.08);
+}
+
+/* Grid Cards */
+.cards, .chefs, .dishes, .gallery{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:2rem;max-width:1100px;margin:2rem auto;
+}
+
+/* General Card Styling */
+.card, .chef-card, .dish-card, .interior-card{
+  background:#fff;
+  border-radius:25px;
+  overflow:hidden;
+  box-shadow:0 25px 50px rgba(0,0,0,0.1);
+  transition:all 0.4s ease;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  text-align:center;
+}
+
+.card h3, .chef-card h3, .dish-card h3, .interior-card h3{
+  color:#ff6a88;
+  margin:0.8rem 0 0.5rem;
+  font-size:1.3rem;
+}
+
+.card p, .chef-card p, .dish-card p, .interior-card p{
+  color:#555;
+  font-size:0.95rem;
+  padding:0 0.5rem 1rem;
+}
+
+/* Images fully visible and responsive */
+.chef-card img, .dish-card img, .interior-card img {
+  width: 100%;
+  height: auto; 
+  max-height: 250px; 
+  object-fit: contain; 
+  border-radius: 25px 25px 0 0; 
+  display: block;
+  background: #f8f8f8; 
+  padding: 0.5rem; 
+}
+
+
+
+/* Why Choose Us */
+.why-us{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.5rem;max-width:1100px;margin:2rem auto;
+}
+.point{
+  background:#fff;padding:2rem;border-radius:25px;border:1px solid #f0f0f0;
+  text-align:center;transition:all 0.3s;position:relative;overflow:hidden;
+}
+.point::before{
+  content:"";position:absolute;top:0;left:0;width:100%;height:100%;
+  background:linear-gradient(135deg,#ff6a88,#ffb199);
+  opacity:0.08;z-index:0;
+}
+.point:hover{
+  transform:scale(1.05);
+  box-shadow:0 20px 40px rgba(0,0,0,0.12);
+}
+.point h4{color:#20c997;margin-bottom:0.5rem;font-size:1.2rem;position:relative;z-index:1;}
+.point p{color:#555;font-size:0.95rem;position:relative;z-index:1;}
+.point h4::before{content:"⭐";margin-right:0.5rem;}
+
+/* CTA Section */
+.cta{
+  background:linear-gradient(135deg,#ff6a88,#ffb199);
+  color:white;text-align:center;padding:4rem 2rem;margin-top:3rem;border-radius:25px;
+}
+.cta h2{font-size:2.2rem;margin-bottom:1.2rem;}
+.cta button{
+  background:#20c997;color:white;border:none;padding:0.9rem 2.2rem;
+  font-size:1rem;border-radius:35px;cursor:pointer;font-weight:600;
+  transition:0.3s;
+}
+.cta button:hover{transform:scale(1.05);}
+
+/* Responsive */
+@media(max-width:992px){
+  .hero h1{font-size:2.5rem;}
+  .hero p{font-size:1.1rem;}
+  .section-title{font-size:1.8rem;}
+}
+@media(max-width:600px){
+  .hero h1{font-size:2rem;}
+  .hero p{font-size:1rem;}
+  .section-title{font-size:1.5rem;}
+  .cards,.why-us,.chefs,.dishes,.gallery{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+  
+
+<!-- Hero -->
+<section class="hero">
+  <h1>About Us</h1>
+  <p>We bring the world’s finest flavors to your plate</p>
+</section>
+
+<!-- Our Story -->
+<h2 class="section-title">Who We Are</h2>
+<div class="about-section">
+  <p>
+    At <strong>Flavors of the World</strong>, we transform dining into a journey. Our multi-cuisine restaurant fuses 
+    authentic recipes from Asia, Europe, and beyond, delivering every flavor to your table with creativity and passion. 
+    From classic comfort dishes to innovative culinary delights, we create memorable experiences for our guests.
+  </p>
+</div>
+
+<!-- Vision & Mission -->
+<h2 class="section-title">Our Vision & Mission</h2>
+<div class="cards">
+  <div class="card">
+    <h3>Our Vision</h3>
+    <p>To be the top choice for food lovers to explore authentic global cuisines in a welcoming, modern atmosphere.</p>
+  </div>
+  <div class="card">
+    <h3>Our Mission</h3>
+    <p>To deliver unforgettable dining experiences by combining quality ingredients, passion, and creativity in every dish.</p>
+  </div>
+</div>
+
+<!-- Chefs Section -->
+<h2 class="section-title">Meet Our Chefs</h2>
+<div class="chefs">
+  <div class="chef-card">
+    <img src="chef 1.jpeg" alt="Chef 1">
+    <h3>Chef Antonio</h3>
+    <p>Expert in Italian cuisine with 15 years of experience crafting authentic pasta & pizza dishes.</p>
+  </div>
+  <div class="chef-card">
+    <img src="chef 2.jpeg" alt="Chef 2">
+    <h3>Chef Mei</h3>
+    <p>Asian cuisine specialist, known for sushi, ramen, and fusion dishes with a modern twist.</p>
+  </div>
+  <div class="chef-card">
+    <img src="chef 3.jpeg" alt="Chef 3">
+    <h3>Chef Liam</h3>
+    <p>Pastry and desserts master, creating exquisite cakes and sweets for an unforgettable dining experience.</p>
+  </div>
+</div>
+
+<!-- Dishes Section -->
+<h2 class="section-title">Signature Dishes</h2>
+<div class="dishes">
+  <div class="dish-card">
+    <img src="Spaghetti Carbonara.jpeg" alt="Dish 1">
+    <h3>Spaghetti Carbonara</h3>
+    <p>Creamy Italian pasta with bacon, cheese, and fresh herbs.</p>
+  </div>
+  <div class="dish-card">
+    <img src="sushi.jpeg" alt="Dish 2">
+    <h3>Sushi Platter</h3>
+    <p>Assorted fresh sushi rolls crafted with precision and care.</p>
+  </div>
+  <div class="dish-card">
+    <img src="Chocolate Lava Cake.jpeg" alt="Dish 3">
+    <h3>Chocolate Lava Cake</h3>
+    <p>Decadent molten chocolate dessert with a rich, gooey center.</p>
+  </div>
+</div>
+
+<!-- Interior Gallery -->
+<h2 class="section-title">Our Restaurant Interior</h2>
+<div class="gallery">
+  <div class="interior-card">
+    <img src="Elegant Dining Area.jpeg" alt="Interior 1">
+    <h3>Elegant Dining Area</h3>
+  </div>
+  <div class="interior-card">
+    <img src="Cozy Ambience.jpeg" alt="Interior 2">
+    <h3>Cozy Ambience</h3>
+  </div>
+  <div class="interior-card">
+    <img src="Modern Decor.jpeg" alt="Interior 3">
+    <h3>Modern Decor</h3>
+  </div>
+</div>
+
+<!-- Why Choose Us -->
+<h2 class="section-title">Why Choose Us</h2>
+<div class="why-us">
+  <div class="point">
+    <h4>Authentic Recipes</h4>
+    <p>Every dish is crafted by expert chefs with the original flavor of the region.</p>
+  </div>
+  <div class="point">
+    <h4>Fresh Ingredients</h4>
+    <p>We ensure the highest quality and freshness in all our dishes.</p>
+  </div>
+  <div class="point">
+    <h4>Modern Ambience</h4>
+    <p>Relax and enjoy your meal in our elegant, contemporary dining space.</p>
+  </div>
+  <div class="point">
+    <h4>Customer Care</h4>
+    <p>Your satisfaction is our priority — every meal, every visit.</p>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>Ready to Taste the World?</h2>
+  <button onclick="window.location.href='menu.html'">Explore Our Menu</button>
+</div>
+
+</body>
+</html>

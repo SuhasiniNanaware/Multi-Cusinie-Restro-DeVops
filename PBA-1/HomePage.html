@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gourmet Delight - Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #fffaf7;
+    }
+    /* Hero Section */
+    .hero {
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)),
+              url('https://images.unsplash.com/photo-1504674900247-0877df9cc836') no-repeat center center/cover;
+  color: white;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-radius: 0 0 25px 25px;
+  padding-top: 5rem;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeSlideIn 1.5s ease forwards;
+}
+
+.hero h1 {
+  font-weight: bold;
+  font-size: 3rem;
+  animation: fadeSlideInText 1.5s ease forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.hero p {
+  font-size: 1.2rem;
+  margin-top: 15px;
+  animation: fadeSlideInText 1.5s ease forwards;
+  animation-delay: 1s;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes fadeSlideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeSlideInText {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+    /* Features Section */
+    .feature-icon {
+      font-size: 50px;
+      color: #ff6f3c;
+    }
+
+    /* Footer */
+    footer {
+      background: #212529;
+      color: #fff;
+      padding: 15px 0;
+      text-align: center;
+      margin-top: 50px;
+    }
+    
+.card-img-top {
+  object-fit: cover;    
+}
+
+
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-body {
+  flex-grow: 1; 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+    
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="home.html">🍽 Gourmet Delight</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="home.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="aboutus.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="contactus.html">Contact Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="cart.html">Cart</a></li>
+          <li class="nav-item"><a class="nav-link" href="register.html">Register</a></li>
+          <li class="nav-item"><a class="nav-link" href="signin.html">Sign In</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>Welcome to Gourmet Delight</h1>
+    <p>Experience authentic flavors from multiple cuisines under one roof!</p>
+    <a href="menu.html" class="btn btn-warning btn-lg mt-3 shadow">Check Our Menu</a>
+  </section>
+  
+  <!-- Deals & Offers Section -->
+<section style="background:#fff8f0; padding:60px 20px;">
+  <h2 style="text-align:center; margin-bottom:50px; font-size:2.2rem; color:#ff704d; font-weight:700; letter-spacing:1px;">🔥 Deals & Offers</h2>
+  <div class="deals-container d-flex flex-wrap justify-content-center gap-4">
+    <div class="deal-card">
+      <div class="deal-img" style="background-image:url('deal1.png');"></div>
+      <div class="deal-info">
+        <h5>Buy 1 Get 1 Free</h5>
+        <img src="Veg Ramen.jpeg">
+        <p>Veg Ramen special offer valid today only!</p>
+      </div>
+      <div class="deal-badge">Hot</div>
+    </div>
+    <div class="deal-card">
+      <div class="deal-img" style="background-image:url('deal2.png');"></div>
+      <div class="deal-info">
+        <h5>20% Off Desserts</h5>
+        <img src="Chocolate Lava Cake.jpeg">
+        <p>Chocolate lava cake at a discounted price.</p>
+      </div>
+      <div class="deal-badge">Limited</div>
+    </div>
+    <div class="deal-card">
+      <div class="deal-img" style="background-image:url('deal3.png');"></div>
+      <div class="deal-info">
+        <h5>Combo Meals</h5>
+        <img src="indian cuisine.png">
+        <p>Special combo meals for a perfect lunch or dinner!</p>
+      </div>
+      <div class="deal-badge">New</div>
+    </div>
+  </div>
+</section>
+
+<!-- Today’s Special Section -->
+<section style="background:#fff3e6; padding:60px 20px;">
+  <h2 style="text-align:center; margin-bottom:50px; font-size:2.2rem; color:#ff704d; font-weight:700; letter-spacing:1px;">✨ Today’s Special</h2>
+  <div class="special-container d-flex flex-wrap justify-content-center gap-4">
+    <div class="special-card">
+      <div class="special-img" style="background-image:url('special1.png');"></div>
+      <div class="special-info">
+        <h5>Spicy Kimchi Ramen</h5>
+        <img src="Veg Ramen.jpeg">
+        <p>Our chef’s special Korean dish to spice up your day.</p>
+      </div>
+      <div class="special-badge">Chef's Pick</div>
+    </div>
+    <div class="special-card">
+      <div class="special-img" style="background-image:url('special2.png');"></div>
+      <div class="special-info">
+        <h5>Chocolate Cheesecake</h5>
+        <img src="cheesecake.jpeg">
+        <p>A sweet treat prepared fresh daily for dessert lovers.</p>
+      </div>
+      <div class="special-badge">Sweet</div>
+    </div>
+  </div>
+</section>
+
+<style>
+.deals-container, .special-container {
+  gap: 25px;
+}
+
+.deal-card, .special-card {
+  width: 280px;
+  background: linear-gradient(135deg,#fff3e6,#ffe6cc);
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 20px 35px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.deal-img, .special-img {
+  width: 100%;
+  height: 180px;
+  background-size: cover;
+  background-position: center;
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  transition: transform 0.5s ease;
+}
+
+.deal-card:hover .deal-img,
+.special-card:hover .special-img {
+  transform: scale(1.1) rotate(-1deg);
+}
+
+.deal-info, .special-info {
+  padding: 20px;
+  text-align: center;
+}
+
+.deal-info h5, .special-info h5 {
+  color: #ff704d;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  font-weight:700;
+}
+
+.deal-info p, .special-info p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.deal-badge, .special-badge {
+  position: absolute;
+  top: 15px;
+  right: -10px;
+  background: #ff704d;
+  color: white;
+  font-weight: 600;
+  padding: 5px 15px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  transform: rotate(15deg);
+}
+
+.deal-card:hover, .special-card:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 30px 50px rgba(0,0,0,0.18);
+}
+
+/* Responsive */
+@media(max-width:768px) {
+  .deal-card, .special-card {
+    width: 90%;
+  }
+}
+</style>
+
+
+   <!-- Our Specialties Section -->
+<section id="specialties" class="py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">Our Specialties</h2>
+    <div class="row g-4">
+      <!-- Card 1 -->
+      <div class="col-md-4">
+        <div class="card shadow h-100">
+          <img src="delicious dishes.png"
+               class="card-img-top img-fluid" alt="Delicious Dish">
+          <div class="card-body text-center">
+            <h5 class="card-title">Delicious Dishes</h5>
+            <p class="card-text">A variety of cuisines prepared with love and care.</p>
+
+      <div class="rating">
+        <span class="star" data-value="1">&#9733;</span>
+        <span class="star" data-value="2">&#9733;</span>
+        <span class="star" data-value="3">&#9733;</span>
+        <span class="star" data-value="4">&#9733;</span>
+        <span class="star" data-value="5">&#9733;</span>
+      </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-md-4">
+        <div class="card shadow h-100">
+                    <img src="healthy salad.png"
+
+               class="card-img-top img-fluid" alt="Salad">
+          <div class="card-body text-center">
+            <h5 class="card-title">Healthy Salads</h5>
+            <p class="card-text">Fresh greens, organic vegetables, and light dressings.</p>
+            
+      <div class="rating">
+        <span class="star" data-value="1">&#9733;</span>
+        <span class="star" data-value="2">&#9733;</span>
+        <span class="star" data-value="3">&#9733;</span>
+        <span class="star" data-value="4">&#9733;</span>
+        <span class="star" data-value="5">&#9733;</span>
+      </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-md-4">
+        <div class="card shadow h-100">
+                    <img src="desserts.png">
+         <div class="card-img-top img-fluid" alt="Desserts">
+          <div class="card-body text-center">
+            <h5 class="card-title">Sweet Desserts</h5>
+            <p class="card-text">Indulge in our delicious cakes, pastries, and sweets.</p>
+           
+      <div class="rating">
+        <span class="star" data-value="1">&#9733;</span>
+        <span class="star" data-value="2">&#9733;</span>
+        <span class="star" data-value="3">&#9733;</span>
+        <span class="star" data-value="4">&#9733;</span>
+        <span class="star" data-value="5">&#9733;</span>
+      </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4 mt-4">
+
+   <!-- Card 4 -->
+<div class="col-md-4">
+  <div class="card shadow h-100">
+                 <img src="korean cuisine.png"
+               class="card-img-top img-fluid" alt="Korean">
+          <div class="card-body text-center">
+      <h5 class="card-title">Korean Cuisine</h5>
+      <p class="card-text">Savor authentic Korean flavors like Bibimbap, Kimchi, and Bulgogi.</p>
+       
+      <div class="rating">
+        <span class="star" data-value="1">&#9733;</span>
+        <span class="star" data-value="2">&#9733;</span>
+        <span class="star" data-value="3">&#9733;</span>
+        <span class="star" data-value="4">&#9733;</span>
+        <span class="star" data-value="5">&#9733;</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Card 5 -->
+<div class="col-md-4">
+  <div class="card shadow h-100">
+      <img src="japanese cuisine.png"
+               class="card-img-top img-fluid" alt="Japanese">
+         
+    <div class="card-body text-center">
+      <h5 class="card-title">Japanese Cuisine</h5>
+      <p class="card-text">Enjoy traditional Japanese dishes like Sushi, Ramen, and Tempura.</p>
+       
+      <div class="rating">
+        <span class="star" data-value="1">&#9733;</span>
+        <span class="star" data-value="2">&#9733;</span>
+        <span class="star" data-value="3">&#9733;</span>
+        <span class="star" data-value="4">&#9733;</span>
+        <span class="star" data-value="5">&#9733;</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+     <!-- Card 6 -->
+<div class="col-md-4">
+  <div class="card shadow h-100">
+     <img src="indian cuisine.png"
+               class="card-img-top img-fluid" alt="Indian">
+          <div class="card-body text-center">
+      <h5 class="card-title">Indian Cuisine</h5>
+      <p class="card-text">Relish flavorful Indian dishes like Biryani, Curry, and Masala Dosa.</p>
+<div class="rating" data-rating="0">
+  <span class="star" data-value="1">&#9733;</span>
+  <span class="star" data-value="2">&#9733;</span>
+  <span class="star" data-value="3">&#9733;</span>
+  <span class="star" data-value="4">&#9733;</span>
+  <span class="star" data-value="5">&#9733;</span>
+</div>
+<style>
+  .rating .star {
+    font-size: 2rem;
+    cursor: pointer;
+    color: #ccc; 
+    transition: color 0.2s;
+  }
+
+  .rating .star.filled {
+    color: gold; 
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const ratingContainers = document.querySelectorAll('.rating');
+
+    ratingContainers.forEach(container => {
+      const stars = container.querySelectorAll('.star');
+      let currentRating = 0;
+
+      stars.forEach(star => {
+        star.addEventListener('click', () => {
+          const rating = parseInt(star.getAttribute('data-value'));
+          currentRating = rating;
+
+          stars.forEach(s => {
+            if (parseInt(s.getAttribute('data-value')) <= rating) {
+              s.classList.add('filled');
+            } else {
+              s.classList.remove('filled');
+            }
+          });
+
+          container.setAttribute('data-rating', rating);
+        });
+
+        star.addEventListener('mouseover', () => {
+          stars.forEach(s => {
+            if (parseInt(s.getAttribute('data-value')) <= parseInt(star.getAttribute('data-value'))) {
+              s.classList.add('filled');
+            } else {
+              s.classList.remove('filled');
+            }
+          });
+        });
+
+        star.addEventListener('mouseout', () => {
+          stars.forEach(s => {
+            if (parseInt(s.getAttribute('data-value')) <= currentRating) {
+              s.classList.add('filled');
+            } else {
+              s.classList.remove('filled');
+            }
+          });
+        });
+
+      });
+    });
+  });
+</script>
+
+  </div>
+</div>
+</section>
+
+<section style="background:#fff3e6; padding:50px 20px; overflow:hidden; position:relative;">
+  <h2 style="text-align:center; margin-bottom:50px; font-size:2rem; color:#ff704d;">What Our Customers Say</h2>
+  <div class="testimonial-slider">
+    <div class="testimonial-track">
+      <div class="testimonial-card">
+        "Amazing service! Loved the quality and prompt delivery." - Alice
+      </div>
+      <div class="testimonial-card">
+        "The customer support was excellent. Highly recommend!" - John
+      </div>
+      <div class="testimonial-card">
+        "A beautiful website and smooth experience. Five stars!" - Maria
+      </div>
+      <div class="testimonial-card">
+        "Fast, reliable, and super friendly team!" - David
+      </div>
+      <div class="testimonial-card">
+        "Great quality products at a very reasonable price." - Sophia
+      </div>
+      <div class="testimonial-card">
+        "Amazing service! Loved the quality and prompt delivery." - Alice
+      </div>
+      <div class="testimonial-card">
+        "The customer support was excellent. Highly recommend!" - John
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.testimonial-slider {
+  overflow: hidden;
+  width: 100%;
+}
+
+.testimonial-track {
+  display: flex;
+  gap: 20px;
+  animation: slideLeft 4s linear infinite; 
+}
+
+.testimonial-card {
+  flex: 0 0 300px;
+  background: #fff;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+  font-style: italic;
+  color: #333;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.testimonial-card:hover {
+  transform: scale(1.05) translateY(-5px);
+  box-shadow: 0 25px 35px rgba(0,0,0,0.15);
+}
+
+@keyframes slideLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } 
+}
+</style>
+
+
+
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Gourmet Delight | All Rights Reserved</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

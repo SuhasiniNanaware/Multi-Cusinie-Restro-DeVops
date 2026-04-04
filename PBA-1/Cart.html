@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart - Flavors of the World</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins', sans-serif; }
+body { background:#f9f7f6; color:#333; }
+
+/* Header */
+header{
+  background: linear-gradient(135deg,#ff7e5f,#feb47b);
+  color:white; text-align:center; padding:4rem 1rem;
+  clip-path: ellipse(100% 100% at 50% 0%);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+header h1{ font-size:2.8rem; font-weight:700; }
+header p{ margin-top:1rem; font-size:1.2rem; opacity:0.9; }
+
+/* Cart Container */
+.cart-container{
+  display:flex; flex-wrap:wrap; max-width:1200px; margin:2rem auto; gap:2rem; padding:0 1rem;
+}
+
+/* Cart Items */
+.cart-items{
+  flex:2; display:flex; flex-direction:column; gap:1.5rem;
+}
+.cart-item{
+  display:flex; background:white; border-radius:20px; overflow:hidden;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08); transition:transform 0.3s ease;
+}
+.cart-item:hover{ transform:translateY(-5px); }
+.cart-item img{
+  width:150px; height:150px; object-fit:cover; border-radius:20px 0 0 20px;
+}
+.cart-info{
+  flex:1; padding:1rem 1.5rem; display:flex; flex-direction:column; justify-content:space-between;
+}
+.cart-info h3{ font-size:1.4rem; font-weight:700; color:#ff704d; }
+.cart-info p{ font-size:1rem; color:#555; margin-top:0.5rem; }
+.cart-actions{
+  display:flex; align-items:center; gap:0.5rem; margin-top:0.8rem;
+}
+.cart-actions button{
+  border:none; padding:0.4rem 0.8rem; border-radius:12px; font-weight:600; cursor:pointer; transition:0.3s;
+}
+.quantity-btn{ background:#20b2aa; color:white; }
+.quantity-btn:hover{ background:#1fa19b; }
+.remove-btn{ background:#ff3c38; color:white; }
+.remove-btn:hover{ background:#ff6655; }
+
+/* Cart Summary */
+.cart-summary{
+  flex:1; background:white; border-radius:20px; padding:2rem;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08); position:sticky; top:2rem;
+}
+.cart-summary h2{ color:#ff704d; font-size:1.8rem; margin-bottom:1.5rem; }
+.summary-item{ display:flex; justify-content:space-between; margin-bottom:1rem; font-size:1rem; color:#333; }
+.summary-item.total{ font-weight:700; font-size:1.2rem; color:#ff3c38; }
+.checkout-btn{
+  width:100%; padding:0.8rem; border:none; border-radius:30px;
+  background:linear-gradient(135deg,#ff7e5f,#feb47b); color:white;
+  font-size:1rem; font-weight:600; cursor:pointer; transition:0.3s;
+}
+.checkout-btn:hover{ transform:scale(1.05); }
+
+/* Empty Cart */
+.empty-cart{
+  text-align:center; padding:5rem 1rem; color:#ff704d;
+}
+.empty-cart h2{ font-size:2rem; margin-bottom:1rem; }
+.empty-cart p{ opacity:0.8; margin-bottom:2rem; }
+.empty-cart button{
+  background:#20b2aa; color:white; border:none; padding:0.7rem 1.8rem;
+  border-radius:30px; cursor:pointer; font-weight:600; transition:0.3s;
+}
+.empty-cart button:hover{ background:#1fa19b; }
+
+/* Responsive */
+@media(max-width:992px){ .cart-container{ flex-direction:column; } .cart-summary{ position:relative; top:0; margin-top:2rem; } }
+@media(max-width:600px){
+  header h1{ font-size:2rem; }
+  header p{ font-size:1rem; }
+  .cart-item{ flex-direction:column; align-items:center; text-align:center; }
+  .cart-item img{ width:100%; height:200px; border-radius:20px 20px 0 0; }
+  .cart-info{ padding:1rem; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Your Cart</h1>
+  <p>Review and customize your delicious selections</p>
+</header>
+
+<div class="cart-container">
+  <!-- Cart Items -->
+  <div class="cart-items" id="cartItems">
+  </div>
+
+  <!-- Cart Summary -->
+  <div class="cart-summary" id="cartSummary">
+    <h2>Order Summary</h2>
+    <div class="summary-item"><span>Subtotal</span><span id="subtotal">₹0</span></div>
+    <div class="summary-item"><span>Taxes (5%)</span><span id="taxes">₹0</span></div>
+    <div class="summary-item total"><span>Total</span><span id="total">₹0</span></div>
+    <button class="checkout-btn">Proceed to Checkout</button>
+  </div>
+</div>
+
+<script>
+let cartItems = JSON.parse(localStorage.getItem("cart")) || [
+  {name:"Veg Spring Rolls", price:150, img:"spring rolls.jpeg", qty:1},
+  {name:"Veg Ramen", price:200, img:"Veg Ramen.jpeg", qty:2},
+  {name:"Chocolate Lava Cake", price:120, img:"Chocolate Lava Cake.jpeg", qty:1}
+];
+
+const cartContainer = document.getElementById("cartItems");
+const subtotalEl = document.getElementById("subtotal");
+const taxesEl = document.getElementById("taxes");
+const totalEl = document.getElementById("total");
+
+function renderCart(){
+  cartContainer.innerHTML = "";
+  if(cartItems.length===0){
+    cartContainer.innerHTML = `<div class="empty-cart">
+      <h2>Your Cart is Empty</h2>
+      <p>Looks like you haven't added any delicious dishes yet.</p>
+      <button onclick="window.location.href='menu.html'">Explore Menu</button>
+    </div>`;
+    subtotalEl.textContent = "₹0"; taxesEl.textContent="₹0"; totalEl.textContent="₹0";
+    return;
+  }
+  
+  cartItems.forEach((item,index)=>{
+    const div = document.createElement("div");
+    div.classList.add("cart-item");
+    div.innerHTML = `
+      <img src="${item.img}" alt="${item.name}">
+      <div class="cart-info">
+        <h3>${item.name}</h3>
+        <p>₹${item.price} each</p>
+        <div class="cart-actions">
+          <button class="quantity-btn" onclick="updateQty(${index},-1)">-</button>
+          <span>${item.qty}</span>
+          <button class="quantity-btn" onclick="updateQty(${index},1)">+</button>
+          <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+        </div>
+      </div>
+    `;
+    cartContainer.appendChild(div);
+  });
+  updateSummary();
+}
+
+function updateQty(index, change){
+  cartItems[index].qty += change;
+  if(cartItems[index].qty < 1) cartItems[index].qty = 1;
+  renderCart();
+}
+
+function removeItem(index){
+  cartItems.splice(index,1);
+  renderCart();
+}
+
+function updateSummary(){
+  let subtotal = cartItems.reduce((acc,item)=>acc + item.price * item.qty,0);
+  let taxes = Math.round(subtotal * 0.05);
+  let total = subtotal + taxes;
+  subtotalEl.textContent = "₹" + subtotal;
+  taxesEl.textContent = "₹" + taxes;
+  totalEl.textContent = "₹" + total;
+
+  localStorage.setItem("cart", JSON.stringify(cartItems));
+}
+
+// Checkout button
+document.querySelector(".checkout-btn").addEventListener("click", ()=>{
+  if(cartItems.length===0){
+    alert("Your cart is empty!");
+    return;
+  }
+  window.location.href = "checkout.html";
+});
+
+renderCart();
+</script>
+
+</body>
+</html>
