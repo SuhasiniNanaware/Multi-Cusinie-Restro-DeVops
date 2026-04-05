@@ -1,6 +1,31 @@
-echo Cloning repository
-echo Building project
-echo Testing project
-echo Deploying project
+pipeline {
+    agent any
 
+    stages {
 
+        stage('Clone') {
+            steps {
+                echo 'Code from GitHub loaded'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                bat 'docker build -t cuisine-app .'
+            }
+        }
+
+        stage('Remove Old Container') {
+            steps {
+                bat 'docker stop cuisine-container || exit 0'
+                bat 'docker rm cuisine-container || exit 0'
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                bat 'docker run -d -p 8081:80 --name cuisine-container cuisine-app'
+            }
+        }
+    }
+}
