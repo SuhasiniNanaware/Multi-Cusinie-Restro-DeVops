@@ -2,9 +2,10 @@ pipeline {
 agent any
 
 stages {
+
     stage('Checkout') {
         steps {
-            git 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
+            checkout scm
         }
     }
 
@@ -20,10 +21,25 @@ stages {
         }
     }
 
+    stage('Code Quality') {
+        steps {
+            echo 'Checking code quality...'
+        }
+    }
+
     stage('Deploy') {
         steps {
-            echo 'Deploying application...'
+            echo 'Deploying app...'
         }
+    }
+}
+
+post {
+    success {
+        echo 'Pipeline succeeded!'
+    }
+    failure {
+        echo 'Pipeline failed!'
     }
 }
 
