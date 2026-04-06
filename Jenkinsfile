@@ -12,7 +12,7 @@ pipeline {
         stage('Run Container') {
             steps {
                 bat 'docker rm -f cuisine-jenkins || echo done'
-                bat 'docker run -d -p 8096:80 --name cuisine-jenkins cuisine-app'
+                bat 'docker run -d -p 8097:80 --name cuisine-jenkins cuisine-app'
             }
         }
     }
