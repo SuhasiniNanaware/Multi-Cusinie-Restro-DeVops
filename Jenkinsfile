@@ -1,4 +1,5 @@
 pipeline {
+<<<<<<< HEAD
     agent any
 
     stages {
@@ -17,3 +18,16 @@ pipeline {
         }
     }
 }
+=======
+agent any
+
+stages {
+    stage('Hello') {
+        steps {
+            echo 'Hello World from Jenkins!'
+        }
+    }
+}
+
+}
+>>>>>>> 606518b (added Jenkinsfile)
