@@ -1,5 +1,5 @@
 pipeline {
-<<<<<<< HEAD
+
     agent any
 
     stages {
@@ -30,4 +30,3 @@ stages {
 }
 
 }
->>>>>>> 606518b (added Jenkinsfile)
