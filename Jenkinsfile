@@ -16,17 +16,11 @@ pipeline {
                 bat 'docker run -d -p 8097:80 --name cuisine-jenkins cuisine-app'
             }
         }
-    }
-}
-=======
-agent any
 
-stages {
-    stage('Hello') {
-        steps {
-            echo 'Hello World from Jenkins!'
+        stage('Hello') {
+            steps {
+                echo 'Hello World from Jenkins!'
+            }
         }
     }
-}
-
 }
