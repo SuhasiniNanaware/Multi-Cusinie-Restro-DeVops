@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t cuisine-app.'
+                bat 'docker build -t cuisine-app .'
             }
         }
         stage('Deploy Container') {
