@@ -3,19 +3,30 @@ pipeline {
     agent any
 
     stages {
-
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t cuisine-app .'
+                bat 'docker build -t cuisine-app.'
             }
         }
-
-        stage('Run Container') {
+        stage('Deploy Container') {
             steps {
-                bat 'docker rm -f cuisine-jenkins || echo done'
-                bat 'docker run -d -p 8097:80 --name cuisine-jenkins cuisine-app'
+                bat 'docker rm -f cuisine-container || exit 0'
+                bat 'docker run -d -p 8097:80 --name cuisine-container cuisine-app'
             }
         }
-
     }
-}
+    post{
+        success{
+            echo 'Deployment Successful'
+        }
+        failure {
+            echo 'Deployment Failed'
+        }
+        }
+    }
+        
