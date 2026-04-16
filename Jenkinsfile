@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
                 checkout scm
@@ -20,7 +19,7 @@ pipeline {
                 sh '''
                     docker stop cuisine-live-site || true
                     docker rm cuisine-live-site || true
-                    docker run -d --name cuisine-live-site -p 8097:80 cuisine-app
+                    docker run -d --name cuisine-live-site -p 8098:80 cuisine-app
                 '''
             }
         }
