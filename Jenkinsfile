@@ -2,7 +2,6 @@ pipeline {
     agent any
 
     stages {
-
         stage('Checkout') {
             steps {
                 checkout scm
@@ -11,16 +10,16 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t cuisine-app .'
+                bat 'docker build -t cuisine-app .'
             }
         }
 
         stage('Deploy Container') {
             steps {
-                sh '''
-                    docker stop cuisine-container || true
-                    docker rm cuisine-container || true
-                    docker run -d -p 8097:80 --name cuisine-container cuisine-app
+                bat '''
+                docker stop cuisine-container || exit 0
+                docker rm cuisine-container || exit 0
+                docker run -d --name cuisine-container -p 8097:80 cuisine-app
                 '''
             }
         }
